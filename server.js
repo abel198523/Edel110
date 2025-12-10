@@ -37,10 +37,16 @@ const bot = new TelegramBot(TELEGRAM_BOT_TOKEN, {
     polling: true
 });
 
-console.log("Bot running in Polling mode.");
-if (MINI_APP_URL) {
-    console.log(`Mini App URL: ${MINI_APP_URL}`);
-}
+bot.getMe().then((botInfo) => {
+    console.log("Bot running in Polling mode.");
+    console.log("Bot username:", botInfo.username);
+    console.log("Bot ID:", botInfo.id);
+    if (MINI_APP_URL) {
+        console.log(`Mini App URL: ${MINI_APP_URL}`);
+    }
+}).catch((err) => {
+    console.error("Failed to get bot info:", err.message);
+});
 
 // Handle the /start command
 bot.onText(/\/start/, async (msg) => {
