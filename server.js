@@ -44,6 +44,7 @@ if (MINI_APP_URL) {
 
 // Handle the /start command
 bot.onText(/\/start/, async (msg) => {
+    console.log('Received /start command from:', msg.from.id);
     const chatId = msg.chat.id;
     const telegramId = msg.from.id;
     
@@ -166,7 +167,11 @@ bot.onText(/💰 Check Balance/, async (msg) => {
 });
 
 bot.on('polling_error', (error) => {
-    console.error("Polling error:", error.code);
+    console.error("Polling error:", error.code, error.message);
+});
+
+bot.on('error', (error) => {
+    console.error("Bot error:", error.message);
 });
 
 // --- End of Telegram Bot Logic ---
